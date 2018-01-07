@@ -1,0 +1,14 @@
+# Target labels
+ sitl_gazebo
+# Source files and their labels
+/home/sdu/catkin_ws/build/Firmware/src/firmware/posix/CMakeFiles/sitl_gazebo
+/home/sdu/catkin_ws/build/Firmware/src/firmware/posix/CMakeFiles/sitl_gazebo.rule
+/home/sdu/catkin_ws/build/Firmware/src/firmware/posix/CMakeFiles/sitl_gazebo-complete.rule
+/home/sdu/catkin_ws/build/Firmware/external/Stamp/sitl_gazebo/sitl_gazebo-install.rule
+/home/sdu/catkin_ws/build/Firmware/external/Stamp/sitl_gazebo/sitl_gazebo-mkdir.rule
+/home/sdu/catkin_ws/build/Firmware/external/Stamp/sitl_gazebo/sitl_gazebo-download.rule
+/home/sdu/catkin_ws/build/Firmware/external/Stamp/sitl_gazebo/sitl_gazebo-update.rule
+/home/sdu/catkin_ws/build/Firmware/external/Stamp/sitl_gazebo/sitl_gazebo-patch.rule
+/home/sdu/catkin_ws/build/Firmware/external/Stamp/sitl_gazebo/sitl_gazebo-configure.rule
+/home/sdu/catkin_ws/build/Firmware/external/Stamp/sitl_gazebo/sitl_gazebo-build.rule
+/home/sdu/catkin_ws/build/Firmware/external/Stamp/sitl_gazebo/sitl_gazebo-forceconfigure.rule
