@@ -1,2 +1,2 @@
-offboard
+offboard:offboard_2:offboard_3
 -DCATKIN_DEVEL_PREFIX=/home/sdu/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/sdu/catkin_ws/install -G Unix Makefiles

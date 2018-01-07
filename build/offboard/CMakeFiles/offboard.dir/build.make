@@ -57,38 +57,38 @@ include offboard/CMakeFiles/offboard.dir/progress.make
 # Include the compile flags for this target's objects.
 include offboard/CMakeFiles/offboard.dir/flags.make
 
-offboard/CMakeFiles/offboard.dir/src/node.cpp.o: offboard/CMakeFiles/offboard.dir/flags.make
-offboard/CMakeFiles/offboard.dir/src/node.cpp.o: /home/sdu/catkin_ws/src/offboard/src/node.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sdu/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object offboard/CMakeFiles/offboard.dir/src/node.cpp.o"
-	cd /home/sdu/catkin_ws/build/offboard && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/offboard.dir/src/node.cpp.o -c /home/sdu/catkin_ws/src/offboard/src/node.cpp
+offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o: offboard/CMakeFiles/offboard.dir/flags.make
+offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o: /home/sdu/catkin_ws/src/offboard/src/node_1.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sdu/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o"
+	cd /home/sdu/catkin_ws/build/offboard && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/offboard.dir/src/node_1.cpp.o -c /home/sdu/catkin_ws/src/offboard/src/node_1.cpp
 
-offboard/CMakeFiles/offboard.dir/src/node.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/offboard.dir/src/node.cpp.i"
-	cd /home/sdu/catkin_ws/build/offboard && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sdu/catkin_ws/src/offboard/src/node.cpp > CMakeFiles/offboard.dir/src/node.cpp.i
+offboard/CMakeFiles/offboard.dir/src/node_1.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/offboard.dir/src/node_1.cpp.i"
+	cd /home/sdu/catkin_ws/build/offboard && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sdu/catkin_ws/src/offboard/src/node_1.cpp > CMakeFiles/offboard.dir/src/node_1.cpp.i
 
-offboard/CMakeFiles/offboard.dir/src/node.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/offboard.dir/src/node.cpp.s"
-	cd /home/sdu/catkin_ws/build/offboard && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sdu/catkin_ws/src/offboard/src/node.cpp -o CMakeFiles/offboard.dir/src/node.cpp.s
+offboard/CMakeFiles/offboard.dir/src/node_1.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/offboard.dir/src/node_1.cpp.s"
+	cd /home/sdu/catkin_ws/build/offboard && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sdu/catkin_ws/src/offboard/src/node_1.cpp -o CMakeFiles/offboard.dir/src/node_1.cpp.s
 
-offboard/CMakeFiles/offboard.dir/src/node.cpp.o.requires:
+offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o.requires:
 
-.PHONY : offboard/CMakeFiles/offboard.dir/src/node.cpp.o.requires
+.PHONY : offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o.requires
 
-offboard/CMakeFiles/offboard.dir/src/node.cpp.o.provides: offboard/CMakeFiles/offboard.dir/src/node.cpp.o.requires
-	$(MAKE) -f offboard/CMakeFiles/offboard.dir/build.make offboard/CMakeFiles/offboard.dir/src/node.cpp.o.provides.build
-.PHONY : offboard/CMakeFiles/offboard.dir/src/node.cpp.o.provides
+offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o.provides: offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o.requires
+	$(MAKE) -f offboard/CMakeFiles/offboard.dir/build.make offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o.provides.build
+.PHONY : offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o.provides
 
-offboard/CMakeFiles/offboard.dir/src/node.cpp.o.provides.build: offboard/CMakeFiles/offboard.dir/src/node.cpp.o
+offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o.provides.build: offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o
 
 
 # Object files for target offboard
 offboard_OBJECTS = \
-"CMakeFiles/offboard.dir/src/node.cpp.o"
+"CMakeFiles/offboard.dir/src/node_1.cpp.o"
 
 # External object files for target offboard
 offboard_EXTERNAL_OBJECTS =
 
-/home/sdu/catkin_ws/devel/lib/offboard/offboard: offboard/CMakeFiles/offboard.dir/src/node.cpp.o
+/home/sdu/catkin_ws/devel/lib/offboard/offboard: offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o
 /home/sdu/catkin_ws/devel/lib/offboard/offboard: offboard/CMakeFiles/offboard.dir/build.make
 /home/sdu/catkin_ws/devel/lib/offboard/offboard: /opt/ros/kinetic/lib/libmavros.so
 /home/sdu/catkin_ws/devel/lib/offboard/offboard: /usr/lib/x86_64-linux-gnu/libGeographic.so
@@ -135,7 +135,7 @@ offboard/CMakeFiles/offboard.dir/build: /home/sdu/catkin_ws/devel/lib/offboard/o
 
 .PHONY : offboard/CMakeFiles/offboard.dir/build
 
-offboard/CMakeFiles/offboard.dir/requires: offboard/CMakeFiles/offboard.dir/src/node.cpp.o.requires
+offboard/CMakeFiles/offboard.dir/requires: offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o.requires
 
 .PHONY : offboard/CMakeFiles/offboard.dir/requires
 

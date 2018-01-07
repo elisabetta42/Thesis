@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/offboard.dir/src/node.cpp.o"
+  "CMakeFiles/offboard.dir/src/node_1.cpp.o"
   "/home/sdu/catkin_ws/devel/lib/offboard/offboard.pdb"
   "/home/sdu/catkin_ws/devel/lib/offboard/offboard"
 )

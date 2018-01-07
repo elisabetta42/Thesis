@@ -29,10 +29,11 @@ def main():
     rospy.init_node('teleop')
     # TODO: Create a publisher for the 'move_command' topic, of type
     # std_msgs/String. Don't forget to import the String message class.
-    cmd_publisher = rospy.Publisher('/gazebo/iris_1/command', String)
+   
     while True:
         try:
-            cmd = raw_input('Movement command ("up", "down", "left", or "right"): ')
+            cmd, drone =  raw_input('Movement command ("up", "down", "left", or "right"): ').split()
+	    cmd_publisher = rospy.Publisher("/gazebo/"+ drone+"/command", String)
             if cmd != 'up' and cmd != 'down' and cmd != 'left' and cmd != 'right':
                 continue
             # TODO: Publish cmd onto the 'move_command' topic.

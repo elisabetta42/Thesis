@@ -817,32 +817,32 @@ nav_msgs_generate_messages_eus/fast:
 	cd /home/sdu/catkin_ws/build && $(MAKE) -f offboard/CMakeFiles/nav_msgs_generate_messages_eus.dir/build.make offboard/CMakeFiles/nav_msgs_generate_messages_eus.dir/build
 .PHONY : nav_msgs_generate_messages_eus/fast
 
-src/node.o: src/node.cpp.o
+src/node_1.o: src/node_1.cpp.o
 
-.PHONY : src/node.o
+.PHONY : src/node_1.o
 
 # target to build an object file
-src/node.cpp.o:
-	cd /home/sdu/catkin_ws/build && $(MAKE) -f offboard/CMakeFiles/offboard.dir/build.make offboard/CMakeFiles/offboard.dir/src/node.cpp.o
-.PHONY : src/node.cpp.o
+src/node_1.cpp.o:
+	cd /home/sdu/catkin_ws/build && $(MAKE) -f offboard/CMakeFiles/offboard.dir/build.make offboard/CMakeFiles/offboard.dir/src/node_1.cpp.o
+.PHONY : src/node_1.cpp.o
 
-src/node.i: src/node.cpp.i
+src/node_1.i: src/node_1.cpp.i
 
-.PHONY : src/node.i
+.PHONY : src/node_1.i
 
 # target to preprocess a source file
-src/node.cpp.i:
-	cd /home/sdu/catkin_ws/build && $(MAKE) -f offboard/CMakeFiles/offboard.dir/build.make offboard/CMakeFiles/offboard.dir/src/node.cpp.i
-.PHONY : src/node.cpp.i
+src/node_1.cpp.i:
+	cd /home/sdu/catkin_ws/build && $(MAKE) -f offboard/CMakeFiles/offboard.dir/build.make offboard/CMakeFiles/offboard.dir/src/node_1.cpp.i
+.PHONY : src/node_1.cpp.i
 
-src/node.s: src/node.cpp.s
+src/node_1.s: src/node_1.cpp.s
 
-.PHONY : src/node.s
+.PHONY : src/node_1.s
 
 # target to generate assembly for a file
-src/node.cpp.s:
-	cd /home/sdu/catkin_ws/build && $(MAKE) -f offboard/CMakeFiles/offboard.dir/build.make offboard/CMakeFiles/offboard.dir/src/node.cpp.s
-.PHONY : src/node.cpp.s
+src/node_1.cpp.s:
+	cd /home/sdu/catkin_ws/build && $(MAKE) -f offboard/CMakeFiles/offboard.dir/build.make offboard/CMakeFiles/offboard.dir/src/node_1.cpp.s
+.PHONY : src/node_1.cpp.s
 
 # Help Target
 help:
@@ -901,9 +901,9 @@ help:
 	@echo "... mavros_msgs_generate_messages_py"
 	@echo "... nav_msgs_generate_messages_eus"
 	@echo "... install/strip"
-	@echo "... src/node.o"
-	@echo "... src/node.i"
-	@echo "... src/node.s"
+	@echo "... src/node_1.o"
+	@echo "... src/node_1.i"
+	@echo "... src/node_1.s"
 .PHONY : help
 
 

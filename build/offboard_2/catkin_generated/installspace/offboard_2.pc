@@ -1,0 +1,8 @@
+prefix=/home/sdu/catkin_ws/install
+
+Name: offboard_2
+Description: Description of offboard_2
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/sdu/catkin_ws/install/lib 
+Requires: 

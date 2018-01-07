@@ -604,6 +604,32 @@ gtest_main/fast:
 .PHONY : gtest_main/fast
 
 #=============================================================================
+# Target rules for targets named offboard_2
+
+# Build rule for target.
+offboard_2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 offboard_2
+.PHONY : offboard_2
+
+# fast build rule for target.
+offboard_2/fast:
+	$(MAKE) -f offboard_2/CMakeFiles/offboard_2.dir/build.make offboard_2/CMakeFiles/offboard_2.dir/build
+.PHONY : offboard_2/fast
+
+#=============================================================================
+# Target rules for targets named offboard_3
+
+# Build rule for target.
+offboard_3: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 offboard_3
+.PHONY : offboard_3
+
+# fast build rule for target.
+offboard_3/fast:
+	$(MAKE) -f offboard_3/CMakeFiles/offboard_3.dir/build.make offboard_3/CMakeFiles/offboard_3.dir/build
+.PHONY : offboard_3/fast
+
+#=============================================================================
 # Target rules for targets named uuid_msgs_generate_messages_cpp
 
 # Build rule for target.
@@ -1196,6 +1222,8 @@ help:
 	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... offboard_2"
+	@echo "... offboard_3"
 	@echo "... uuid_msgs_generate_messages_cpp"
 	@echo "... geographic_msgs_generate_messages_eus"
 	@echo "... _catkin_empty_exported_target"

@@ -744,6 +744,18 @@ modules__vtol_att_control_LIB_DEPENDS:STATIC=
 nav_msgs_DIR:PATH=/opt/ros/kinetic/share/nav_msgs/cmake
 
 //Value Computed by CMake
+offboard_2_BINARY_DIR:STATIC=/home/sdu/catkin_ws/build/offboard_2
+
+//Value Computed by CMake
+offboard_2_SOURCE_DIR:STATIC=/home/sdu/catkin_ws/src/offboard_2
+
+//Value Computed by CMake
+offboard_3_BINARY_DIR:STATIC=/home/sdu/catkin_ws/build/offboard_3
+
+//Value Computed by CMake
+offboard_3_SOURCE_DIR:STATIC=/home/sdu/catkin_ws/src/offboard_3
+
+//Value Computed by CMake
 offboard_BINARY_DIR:STATIC=/home/sdu/catkin_ws/build/offboard
 
 //Value Computed by CMake
@@ -1060,7 +1072,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

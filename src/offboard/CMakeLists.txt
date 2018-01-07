@@ -199,5 +199,8 @@ include_directories(
 # catkin_add_nosetests(test)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
-add_executable(offboard src/node.cpp)
+#add_executable(offboard src/node.cpp)
+add_executable(offboard src/node_1.cpp)
 target_link_libraries(offboard ${catkin_LIBRARIES}) 
+
+

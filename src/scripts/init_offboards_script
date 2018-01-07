@@ -1,0 +1,5 @@
+#!/bin/bash
+source /home/sdu/catkin_ws/devel/setup.bash
+konsole --noclose -e rosrun offboard offboard 
+konsole --noclose -e rosrun offboard_2 offboard_2
+konsole --noclose -e rosrun offboard_3 offboard_3

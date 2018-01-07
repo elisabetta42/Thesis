@@ -1,0 +1,8 @@
+prefix=/home/sdu/catkin_ws/devel
+
+Name: offboard_3
+Description: Description of offboard_3
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/sdu/catkin_ws/devel/lib 
+Requires: 
