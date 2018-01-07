@@ -18,7 +18,7 @@ using namespace std;
 mavros_msgs::State current_state;
 ros::Publisher local_pos_pub;
 gazebo_msgs::GetModelState getmodelstate;
- geometry_msgs::PoseStamped pose;
+geometry_msgs::PoseStamped pose;
 void state_cb(const mavros_msgs::State::ConstPtr& msg){
     current_state = *msg;
 }
@@ -53,6 +53,13 @@ void move_drone_callback(const std_msgs::String::ConstPtr& msg)
          else ROS_INFO("command not implemented");
 
   }
+void move_drone_to_target_callback(const geometry_msgs::PoseStamped::ConstPtr& msg)
+{
+	pose.pose.position.x =  msg->pose.position.x;
+    	pose.pose.position.y =  msg->pose.position.y;
+        pose.pose.position.z =  msg->pose.position.z;
+}
+
 
 int main(int argc, char **argv)
 {
@@ -70,6 +77,7 @@ int main(int argc, char **argv)
             ("iris_1/mavros/set_mode");
     ros::ServiceClient gms_c = nh.serviceClient<gazebo_msgs::GetModelState>("/gazebo/get_model_state");
     ros::Subscriber sub = nh.subscribe("/gazebo/iris_1/command", 1000, move_drone_callback);
+    ros::Subscriber destination = nh.subscribe("gazebo/iris_1/go_to_destination", 1000, move_drone_to_target_callback);
     
     gms_c.call(getmodelstate);
 
