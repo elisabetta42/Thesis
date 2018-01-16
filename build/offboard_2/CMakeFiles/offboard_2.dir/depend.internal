@@ -6,6 +6,10 @@ offboard_2/CMakeFiles/offboard_2.dir/src/node_2.cpp.o
  /opt/ros/kinetic/include/gazebo_msgs/GetModelState.h
  /opt/ros/kinetic/include/gazebo_msgs/GetModelStateRequest.h
  /opt/ros/kinetic/include/gazebo_msgs/GetModelStateResponse.h
+ /opt/ros/kinetic/include/gazebo_msgs/ModelState.h
+ /opt/ros/kinetic/include/gazebo_msgs/SetModelState.h
+ /opt/ros/kinetic/include/gazebo_msgs/SetModelStateRequest.h
+ /opt/ros/kinetic/include/gazebo_msgs/SetModelStateResponse.h
  /opt/ros/kinetic/include/geometry_msgs/Point.h
  /opt/ros/kinetic/include/geometry_msgs/Pose.h
  /opt/ros/kinetic/include/geometry_msgs/PoseStamped.h

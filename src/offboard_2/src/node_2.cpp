@@ -9,6 +9,8 @@
 #include <mavros_msgs/CommandBool.h>
 #include <mavros_msgs/SetMode.h>
 #include "gazebo_msgs/GetModelState.h"
+#include "gazebo_msgs/SetModelState.h"
+#include "gazebo_msgs/ModelState.h"
 #include <mavros_msgs/State.h>
 #include <iostream>
 #include "std_msgs/String.h"
@@ -19,38 +21,41 @@ mavros_msgs::State current_state;
 ros::Publisher local_pos_pub;
 gazebo_msgs::GetModelState getmodelstate;
 geometry_msgs::PoseStamped pose;
+ros::ServiceClient gms_c;
 void state_cb(const mavros_msgs::State::ConstPtr& msg){
     current_state = *msg;
 }
 void move_drone_callback(const std_msgs::String::ConstPtr& msg)
   {
+	 gms_c.call(getmodelstate);
 	 //ROS_INFO("I heard: [%s]", msg->data.c_str());
 	//switch (str2int(msg->data.c_str())) {
         if(string(msg->data.c_str()).compare("right")== 0){
             ROS_INFO("It pressed right");
 	    pose.pose.position.x = getmodelstate.response.pose.position.x+1;
     	    pose.pose.position.y = getmodelstate.response.pose.position.y;
-            pose.pose.position.z = getmodelstate.response.pose.position.z+1;
+            pose.pose.position.z = getmodelstate.response.pose.position.z;
             }
         else if(string(msg->data.c_str()).compare("left")== 0){
             ROS_INFO("It pressed left");
 	    pose.pose.position.x = getmodelstate.response.pose.position.x-1;
     	    pose.pose.position.y = getmodelstate.response.pose.position.y;
-            pose.pose.position.z = getmodelstate.response.pose.position.z+1;
+            pose.pose.position.z = getmodelstate.response.pose.position.z;
            }
         else if(string(msg->data.c_str()).compare("up")== 0){
             ROS_INFO("It pressed up");
             pose.pose.position.x = getmodelstate.response.pose.position.x;
     	    pose.pose.position.y = getmodelstate.response.pose.position.y+1;
-            pose.pose.position.z = getmodelstate.response.pose.position.z+1;
+            pose.pose.position.z = getmodelstate.response.pose.position.z;
             }
 	 else if (string(msg->data.c_str()).compare("down")== 0){
             ROS_INFO("It pressed down");
             pose.pose.position.x = getmodelstate.response.pose.position.x;
     	    pose.pose.position.y = getmodelstate.response.pose.position.y-1;
-            pose.pose.position.z = getmodelstate.response.pose.position.z+1;
+            pose.pose.position.z = getmodelstate.response.pose.position.z;
           }
          else ROS_INFO("command not implemented");
+	 local_pos_pub.publish(pose);
 
   }
 void move_drone_to_target_callback(const geometry_msgs::PoseStamped::ConstPtr& msg)
@@ -58,6 +63,8 @@ void move_drone_to_target_callback(const geometry_msgs::PoseStamped::ConstPtr& m
 	pose.pose.position.x =  msg->pose.position.x;
     	pose.pose.position.y =  msg->pose.position.y;
         pose.pose.position.z =  msg->pose.position.z;
+	ROS_INFO("setpoint: %.1f, %.1f, %.1f", pose.pose.position.x, pose.pose.position.y, pose.pose.position.z);
+ 
 }
 
 
@@ -66,7 +73,8 @@ int main(int argc, char **argv)
     std::cout<<argv[0]<<"passed argument";
     ros::init(argc, argv, "offb2_node");
     ros::NodeHandle nh;
-
+    
+    
     ros::Subscriber state_sub = nh.subscribe<mavros_msgs::State>
             ("iris_2/mavros/state", 10, state_cb);
     local_pos_pub = nh.advertise<geometry_msgs::PoseStamped>
@@ -75,12 +83,12 @@ int main(int argc, char **argv)
             ("iris_2/mavros/cmd/arming");
     ros::ServiceClient set_mode_client = nh.serviceClient<mavros_msgs::SetMode>
             ("iris_2/mavros/set_mode");
-    ros::ServiceClient gms_c = nh.serviceClient<gazebo_msgs::GetModelState>("/gazebo/get_model_state");
+
+    gms_c = nh.serviceClient<gazebo_msgs::GetModelState>("/gazebo/get_model_state");
     ros::Subscriber sub = nh.subscribe("/gazebo/iris_2/command", 1000, move_drone_callback);
     ros::Subscriber destination = nh.subscribe("gazebo/iris_2/go_to_destination", 1000, move_drone_to_target_callback);
-    
+    getmodelstate.request.model_name="iris_2";
     gms_c.call(getmodelstate);
-
     //the setpoint publishing rate MUST be faster than 2Hz
     ros::Rate rate(20.0);
 
@@ -90,10 +98,11 @@ int main(int argc, char **argv)
         rate.sleep();
     }
     //send a message to move to move drone position
-   
     pose.pose.position.x = getmodelstate.response.pose.position.x;
     pose.pose.position.y = getmodelstate.response.pose.position.y;
-    pose.pose.position.z = getmodelstate.response.pose.position.z+1;
+    pose.pose.position.z = 1;
+    pose.pose.orientation.w = 1;
+    
     //send a few setpoints before starting
     for(int i = 100; ros::ok() && i > 0; --i){
         local_pos_pub.publish(pose);
@@ -103,7 +112,7 @@ int main(int argc, char **argv)
 
     mavros_msgs::SetMode offb_set_mode;
     offb_set_mode.request.custom_mode = "OFFBOARD";
-
+   
     mavros_msgs::CommandBool arm_cmd;
     arm_cmd.request.value = true;
 
@@ -127,8 +136,10 @@ int main(int argc, char **argv)
                 last_request = ros::Time::now();
             }
         }
+     	//ROS_INFO("I am here");
+	ROS_INFO("setpoint: %.1f, %.1f, %.1f", pose.pose.position.x, pose.pose.position.y, pose.pose.position.z);
 	local_pos_pub.publish(pose);
-        ros::spinOnce();
+	ros::spinOnce();
         rate.sleep();
     }
 
