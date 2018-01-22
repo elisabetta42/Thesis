@@ -14,7 +14,7 @@ class Block:
         self._relative_entity_name = relative_entity_name
 
 class Tutorial:
-    rospy.init_node("moveit")
+    rospy.init_node("moveit3")
     _blockListDict = {
         'block_a': Block('iris_1', 'base_link'),
 	'block_b': Block('iris_2', 'base_link'),
@@ -26,14 +26,14 @@ class Tutorial:
     		try:
 			#offset not needed since iris_1 starts in 0 0 0 and thus has global coordinates
     			model_coordinates = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)
-    			input_drone_coordinates = model_coordinates("iris_1", "base_link")	
+    			input_drone_coordinates = model_coordinates("iris_3", "base_link")	
 			c_x=input_drone_coordinates.pose.position.x
  			c_y=input_drone_coordinates.pose.position.y
 			current_position=numpy.array([c_x,c_y])	
 			new_position=numpy.array([0.0,0.0])			
     			for block in self._blockListDict.itervalues():
     				blockName = str(block._name)
-    				if blockName!="iris_1" :
+    				if blockName!="iris_3" :
 					 resp_coordinates = model_coordinates(blockName, block._relative_entity_name)
 					 vector=numpy.array([0.0,0.0])
 					 
@@ -43,16 +43,27 @@ class Tutorial:
 					 position=numpy.array([x,y])
 					 vector += position
         				 vector /= len(self._blockListDict) - 1
-        		                 rule_1_vector=(vector - position) / 7.5
+        		                 rule_1_vector=(vector - position) / 100
 					 
 				 	 #Rule 2 - Boids try to keep a small distance away from other objects (including other boids). 
 					 x1=resp_coordinates.pose.position.x
 					 x2=input_drone_coordinates.pose.position.x
 					 y1=resp_coordinates.pose.position.y
 					 y2=input_drone_coordinates.pose.position.y
-					 distance=math.sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2))	
+					 distance=math.sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2))
+					 #print "x1"
+					 #print x1
+				         #print "x2"
+				         #print x2
+					 #print "y1"
+					 #print y1
+                                         #print "y2"
+					 #print y2
+					 #print "distance:"
+					 #print distance	
 					 if distance < 0.4:
 						 vector -= (position - current_position)
+						 print "I am here"
 					 rule_2_vector=vector	
 				         
 					 #implement velocity - for now constant
@@ -62,8 +73,8 @@ class Tutorial:
 			goal = PoseStamped()
 			#goal.header.frame_id = "/base_link"
 			#goal.header.stamp = rospy.Time.now()
-			goal.pose.position.x = new_position[0]
-			goal.pose.position.y = new_position[1]
+			goal.pose.position.x = new_position[0] - 1
+			goal.pose.position.y = new_position[1] + 1
 			goal.pose.position.z = 1
 			print new_position[0]
 			print new_position[1]

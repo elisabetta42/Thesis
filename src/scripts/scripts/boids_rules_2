@@ -1,0 +1,92 @@
+#! /usr/bin/env python
+from gazebo_msgs.srv import GetModelState
+from geometry_msgs.msg import PoseStamped
+from std_msgs.msg import Float64
+from rospy_tutorials.msg import Floats
+from rospy.numpy_msg import numpy_msg
+import numpy
+import math
+import rospy
+
+class Block:
+    def __init__(self, name, relative_entity_name):
+        self._name = name
+        self._relative_entity_name = relative_entity_name
+
+class Tutorial:
+    rospy.init_node("moveit2")
+    _blockListDict = {
+        'block_a': Block('iris_1', 'base_link'),
+	'block_b': Block('iris_2', 'base_link'),
+        'block_c': Block('iris_3', 'base_link')
+    }
+
+    def show_gazebo_models(self):
+	while True:  
+    		try:
+			#offset not needed since iris_1 starts in 0 0 0 and thus has global coordinates
+    			model_coordinates = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)
+    			input_drone_coordinates = model_coordinates("iris_2", "base_link")	
+			c_x=input_drone_coordinates.pose.position.x
+ 			c_y=input_drone_coordinates.pose.position.y
+			current_position=numpy.array([c_x,c_y])	
+			new_position=numpy.array([0.0,0.0])			
+    			for block in self._blockListDict.itervalues():
+    				blockName = str(block._name)
+    				if blockName!="iris_2" :
+					 resp_coordinates = model_coordinates(blockName, block._relative_entity_name)
+					 vector=numpy.array([0.0,0.0])
+					 
+					 #Rule 1 - Boids try to fly towards the centre of mass of neighbouring boids. 
+					 x=resp_coordinates.pose.position.x
+ 					 y=resp_coordinates.pose.position.y
+					 position=numpy.array([x,y])
+					 vector += position
+        				 vector /= len(self._blockListDict) - 1
+        		                 rule_1_vector=(vector - position) / 100
+					 
+				 	 #Rule 2 - Boids try to keep a small distance away from other objects (including other boids). 
+					 x1=resp_coordinates.pose.position.x
+					 x2=input_drone_coordinates.pose.position.x
+					 y1=resp_coordinates.pose.position.y
+					 y2=input_drone_coordinates.pose.position.y
+					 distance=math.sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2))
+					 #print "x1"
+					 #print x1
+				         #print "x2"
+				         #print x2
+					 #print "y1"
+					 #print y1
+                                         #print "y2"
+					 #print y2
+					 #print "distance:"
+					 #print distance	
+					 if distance < 0.4:
+						 vector -= (position - current_position)
+						 print "I am here"
+					 rule_2_vector=vector	
+				         
+					 #implement velocity - for now constant
+					 #print new_position
+                	new_position= rule_1_vector + rule_2_vector
+			print new_position
+			goal = PoseStamped()
+			#goal.header.frame_id = "/base_link"
+			#goal.header.stamp = rospy.Time.now()
+			goal.pose.position.x = new_position[0] - 1
+			goal.pose.position.y = new_position[1] - 1
+			goal.pose.position.z = 1
+			print new_position[0]
+			print new_position[1]
+			arm_pub = rospy.Publisher("gazebo/iris_1/go_to_destination", PoseStamped,queue_size=1000)
+			arm_pub.publish(goal)
+
+		except rospy.ServiceException as e:
+    			rospy.loginfo("Get Model State service call failed:  {0}".format(e))
+	
+		
+
+if __name__ == '__main__':
+		tuto = Tutorial()
+        	tuto.show_gazebo_models()
+

@@ -101,7 +101,7 @@ int main(int argc, char **argv)
     pose.pose.position.x = getmodelstate.response.pose.position.x;
     pose.pose.position.y = getmodelstate.response.pose.position.y;
     pose.pose.position.z = 1;
-    pose.pose.orientation.w = 1;
+    //pose.pose.orientation.w = 1;
     
     //send a few setpoints before starting
     for(int i = 100; ros::ok() && i > 0; --i){
@@ -137,7 +137,7 @@ int main(int argc, char **argv)
             }
         }
      	//ROS_INFO("I am here");
-	ROS_INFO("setpoint: %.1f, %.1f, %.1f", pose.pose.position.x, pose.pose.position.y, pose.pose.position.z);
+	//ROS_INFO("setpoint: %.1f, %.1f, %.1f", pose.pose.position.x, pose.pose.position.y, pose.pose.position.z);
 	local_pos_pub.publish(pose);
 	ros::spinOnce();
         rate.sleep();
