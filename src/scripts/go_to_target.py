@@ -7,6 +7,7 @@ import rospy
 import numpy
 import math
 import random
+from std_msgs.msg import Float64
 
 class Block:
     def __init__(self, name, relative_entity_name):
@@ -14,7 +15,10 @@ class Block:
         self._relative_entity_name = relative_entity_name
 
 class Tutorial:
-    
+    arm_pub=list()
+    arm_pub.append(rospy.Publisher("gazebo/iris_1/go_to_destination", PoseStamped,queue_size=1000))
+    arm_pub.append(rospy.Publisher("gazebo/iris_2/go_to_destination", PoseStamped,queue_size=1000))
+    arm_pub.append(rospy.Publisher("gazebo/iris_3/go_to_destination", PoseStamped,queue_size=1000))
     _blockListDict = {
         'block_a': Block('iris_1', 'base_link'),
 	'block_b': Block('iris_2', 'base_link'),
@@ -27,13 +31,13 @@ class Tutorial:
 			c_x=input_drone_coordinates.pose.position.x
  			c_y=input_drone_coordinates.pose.position.y
 			a = random.random()
-			f= random.uniform( -0.2, 0.2 )
+			f= random.uniform( -0.05, 0.05 )
 			#return vector	
 			v=numpy.array([0.0,0.0])
 			#add random quantity
 			position=numpy.array([c_x+f,c_y+f])
 			#radius
-			radius=2.5
+			radius=3	
 			n_count=0			
     			for block in self._blockListDict.itervalues():
     				blockName = str(block._name)
@@ -87,7 +91,7 @@ class Tutorial:
 			c_x=input_drone_coordinates.pose.position.x
  			c_y=input_drone_coordinates.pose.position.y
 			a = random.random()
-			f= random.uniform( -0.2, 0.2 )
+			f= random.uniform( -0.05, 0.05 )
 			
 			#return vector	
 			v=numpy.array([0.0,0.0])
@@ -130,20 +134,42 @@ class Tutorial:
 			#print "v after normalization"
 			#print v
 			
-			return v		
+			return v
+    def temperature(self,temperature):
+	print "I am in temperature iris_1"
+	print temperature
+	model_coordinates = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)  			
+	if temperature > 100:
+		#torna indietro e propaga
+		count=0
+		print "Temperature is high"
+		for block in self._blockListDict.itervalues():
+    				blockName = str(block._name)
+				resp_coordinates = model_coordinates(blockName, block._relative_entity_name)
+		                propagate_pos=PoseStamped()
+		                propagate_pos.header.frame_id = "/base_link"
+		                propagate_pos.header.stamp = rospy.Time.now()
+		                propagate_pos.pose.position.x = resp_coordinates.pose.position.x
+				propagate_pos.pose.position.y = resp_coordinates.pose.position.y - 0.5
+				propagate_pos.pose.position.z = 1
+				self.arm_pub[count].publish(propagate_pos)
+				count=count+1
+						
+				
+    
+			
 				         
 if __name__ == '__main__':
 	rospy.init_node("go_to_destination") 
 	tuto = Tutorial()
 	var1, var2, var3 = raw_input("Enter target position").split()
-	
+	sub_temp1=rospy.Subscriber("/gazebo/iris_1/temperature", Float64 , tuto.temperature_1)
+        sub_temp2=rospy.Subscriber("/gazebo/iris_2/temperature", Float64 , tuto.temperature_2)
+        sub_temp2=rospy.Subscriber("/gazebo/iris_3/temperature", Float64 , tuto.temperature_3)
+
 	while True:
 		
-		
 		vres=numpy.array([0.0,0.0])		
-		arm_pub_1 = rospy.Publisher("gazebo/iris_1/go_to_destination", PoseStamped,queue_size=1000)
-		arm_pub_2 = rospy.Publisher("gazebo/iris_2/go_to_destination", PoseStamped,queue_size=1000)
-		arm_pub_3 = rospy.Publisher("gazebo/iris_3/go_to_destination", PoseStamped,queue_size=1000)
 		#iris_1
 		goal = PoseStamped()
 		x_off=0.0
@@ -159,12 +185,12 @@ if __name__ == '__main__':
 		goal.pose.position.x = vres[0] + x_off
 		goal.pose.position.y = vres[1] + y_off
 		goal.pose.position.z = float(var3)
-		arm_pub_1.publish(goal)  
+		tuto.arm_pub[0].publish(goal)
 		
 		#iris_2		
 		goal = PoseStamped()
-		x_off=-6
-		y_off=-6
+		x_off=-2
+		y_off=-2
 		separation=tuto.separation("iris_2")
 		cohesion=tuto.cohesion("iris_2")
 		#v2=numpy.array([(float(var1)+x_off),float(var2)+y_off])
@@ -176,12 +202,12 @@ if __name__ == '__main__':
 		goal.pose.position.x = vres[0] + x_off
 		goal.pose.position.y = vres[1] + y_off
 		goal.pose.position.z = float(var3)
-		arm_pub_2.publish(goal)
+		tuto.arm_pub[1].publish(goal)
 		
 		#iris_3		
 		goal = PoseStamped()
-		x_off=-6
-		y_off=6
+		x_off=-2
+		y_off=2
 		separation=tuto.separation("iris_3")
 		cohesion=tuto.cohesion("iris_3")
 		#v2=numpy.array([(float(var1)+x_off),float(var2)+y_off])
@@ -193,7 +219,7 @@ if __name__ == '__main__':
 		goal.pose.position.x = vres[0] + x_off
 		goal.pose.position.y = vres[1] + y_off
 		goal.pose.position.z = float(var3)		
-		arm_pub_3.publish(goal)
+		tuto.arm_pub[2].publish(goal)
 		
 		
 if __name__ == '__main__':
