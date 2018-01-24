@@ -132,28 +132,57 @@ class Tutorial:
 			magnitude = math.sqrt(pow((v[0]), 2)+pow((v[1]), 2))
 			v=v/magnitude
 			#print "v after normalization"
-			#print v
-			
+			#print v			
 			return v
-    def temperature(self,temperature):
+	
+    def temperature_1(self,temperature):
 	print "I am in temperature iris_1"
 	print temperature
 	model_coordinates = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)  			
-	if temperature > 100:
+	if temperature > 70:
 		#torna indietro e propaga
-		count=0
 		print "Temperature is high"
-		for block in self._blockListDict.itervalues():
-    				blockName = str(block._name)
-				resp_coordinates = model_coordinates(blockName, block._relative_entity_name)
-		                propagate_pos=PoseStamped()
-		                propagate_pos.header.frame_id = "/base_link"
-		                propagate_pos.header.stamp = rospy.Time.now()
-		                propagate_pos.pose.position.x = resp_coordinates.pose.position.x
-				propagate_pos.pose.position.y = resp_coordinates.pose.position.y - 0.5
-				propagate_pos.pose.position.z = 1
-				self.arm_pub[count].publish(propagate_pos)
-				count=count+1
+		resp_coordinates = model_coordinates("iris_1", "base_ilnk")
+		propagate_pos=PoseStamped()
+		propagate_pos.header.frame_id = "/base_link"
+		propagate_pos.header.stamp = rospy.Time.now()
+		propagate_pos.pose.position.x = resp_coordinates.pose.position.x
+		propagate_pos.pose.position.y = resp_coordinates.pose.position.y - 1.5
+		propagate_pos.pose.position.z = 1
+		self.arm_pub[0].publish(propagate_pos)
+			
+    def temperature_2(self,temperature):
+	print "I am in temperature iris_2"
+	print temperature
+	model_coordinates = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)  			
+	if temperature > 70:
+		#torna indietro e propaga
+		print "Temperature is high"
+		resp_coordinates = model_coordinates("iris_2", "base_ilnk")
+		propagate_pos=PoseStamped()
+		propagate_pos.header.frame_id = "/base_link"
+		propagate_pos.header.stamp = rospy.Time.now()
+		propagate_pos.pose.position.x = resp_coordinates.pose.position.x
+		propagate_pos.pose.position.y = resp_coordinates.pose.position.y - 1.5
+		propagate_pos.pose.position.z = 1
+		self.arm_pub[1].publish(propagate_pos)
+			
+    def temperature_3(self,temperature):
+	print "I am in temperature iris_3"
+	print temperature
+	model_coordinates = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)  			
+	if temperature > 70:
+		#torna indietro e propaga
+		print "Temperature is high"
+		resp_coordinates = model_coordinates("iris_3", "base_ilnk")
+		propagate_pos=PoseStamped()
+		propagate_pos.header.frame_id = "/base_link"
+		propagate_pos.header.stamp = rospy.Time.now()
+		propagate_pos.pose.position.x = resp_coordinates.pose.position.x
+		propagate_pos.pose.position.y = resp_coordinates.pose.position.y - 1.5
+		propagate_pos.pose.position.z = 1
+		self.arm_pub[2].publish(propagate_pos)
+				
 						
 				
     
