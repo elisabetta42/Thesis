@@ -76,24 +76,24 @@ class Tutorial:
 			#print v
 			#Divide by the number of neibourgh
 			if n_count==0:		
-				#print "I am moving randomly..."
+				print "I am moving randomly..."
 				return position			
 			v[0]=v[0]/n_count
 			v[1]=v[1]/n_count
 			#calculate magnitude
 			magnitude = math.sqrt(pow((v[0]), 2)+pow((v[1]), 2))
-			#print "magnitude separation"			
-			#print magnitude
+			print "magnitude separation"			
+			print magnitude
 			v=v/magnitude
-			#print "unitary vector"
-			#print v
+			print "unitary vector"
+			print v
 			#print "v after n count division"
 			#print v
 			#Opposite direction
 			v[0]*=-2
 			v[1]*=-2
-			#print "negated vector"
-			#print v
+			print "negated vector"
+			print v
 			#print "v opposite direction"
 			#print v
 			#Normalize vector using min-max normalization
@@ -114,12 +114,13 @@ class Tutorial:
 			#return vector	
 			v=numpy.array([0.0,0.0])
 			#add random quantity
-			position=numpy.array([c_x,c_y])
+			position=numpy.array([c_x+f,c_y+f])
 			#radius
 			radius=50	
 			n_count=0			
     			for block in self._blockListDict.itervalues():
-    				blockName = str(block._name)				
+    				blockName = str(block._name)
+				
     				if blockName!=uav_name:
 					 resp_coordinates = model_coordinates(blockName, block._relative_entity_name)
 					 x1=resp_coordinates.pose.position.x
@@ -132,18 +133,10 @@ class Tutorial:
 					 	v[0] += x1 
 						v[1] += y1
 					        n_count=n_count+1
-						if uav_name=="iris_1":
-							print v
-							print x1
-							print y1
-			
-			#print uav_name			
-			#print n_count
 			#print "v after n count"
 			#print v
 			#Divide by the number of neibourgh
 			if n_count==0:
-				#print #there are no neibourgh around"
 				return position	
 			#return center of mass		
 			v[0]=v[0]/n_count
@@ -157,7 +150,7 @@ class Tutorial:
 			magnitude = math.sqrt(pow((v[0]), 2)+pow((v[1]), 2))
 			v=v/magnitude
 			#print "v after normalization"
-			#print v
+			#print v			
 			return v
 	
     def temperature_1(self,temperature):
@@ -263,20 +256,20 @@ if __name__ == '__main__':
 	sub_temp1=rospy.Subscriber("/gazebo/iris_1/temperature", Float64 , tuto.temperature_1)
         sub_temp2=rospy.Subscriber("/gazebo/iris_2/temperature", Float64 , tuto.temperature_2)
         sub_temp2=rospy.Subscriber("/gazebo/iris_3/temperature", Float64 , tuto.temperature_3)
+	
 	#sub_dist1=rospy.Subscriber("/gazebo/iris_1/fire_dist", Float64 , tuto.dist_1)
         #sub_dist2=rospy.Subscriber("/gazebo/iris_2/fire_dist", Float64 , tuto.dist_2)
         #sub_dist3=rospy.Subscriber("/gazebo/iris_3/fire_dist", Float64 , tuto.dist_3)
 	while True:
-			
+		var=0
+		vres=numpy.array([0.0,0.0])		
 		#iris_1
 		goal = PoseStamped()
 		x_off=0.0
 		y_off=0.0
 		separation=tuto.separation("iris_1")
 		cohesion=tuto.cohesion("iris_1")
-		print "cohesion"		
-		print cohesion
-		#v2=numpy.array([(float(var1)+x_off),float(var2)+y_off])
+		v2=numpy.array([(float(var1)+x_off),float(var2)+y_off])
 		tuto.vres[0]=separation[0] + (0.3*cohesion [0])
 		tuto.vres[1]=separation[1] + (0.3*cohesion [1])
 		goal.header.frame_id = "/base_link"

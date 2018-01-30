@@ -34,7 +34,7 @@ def main():
 		 temp_publisher_1 = rospy.Publisher("/gazebo/"+uav_name+"/temperature", Float64,queue_size=1000)
 		 dist_publisher_1 = rospy.Publisher("/gazebo/"+uav_name+"/fire_dist", Float64,queue_size=1000)
 		 result=temp.temperature_sensor(uav_name)
-		 #temp_publisher_1.publish(result[0])
+		 temp_publisher_1.publish(result[0])
 	         #dist_publisher_1.publish(result[1])		
 	         
 		 uav_name="iris_2"
@@ -42,14 +42,14 @@ def main():
 	         dist_publisher_2 = rospy.Publisher("/gazebo/"+uav_name+"/fire_dist", Float64,queue_size=1000)
 		 iris_2_temp,iris_2_distance=temp.temperature_sensor(uav_name)
 		 result=temp.temperature_sensor(uav_name)
-		 #temp_publisher_2.publish(result[0])
+		 temp_publisher_2.publish(result[0])
 	         #dist_publisher_2.publish(result[1])
 
 		 uav_name="iris_3"
 		 temp_publisher_3 = rospy.Publisher("/gazebo/"+uav_name+"/temperature", Float64,queue_size=1000)
 		 dist_publisher_3 = rospy.Publisher("/gazebo/"+uav_name+"/fire_dist", Float64,queue_size=1000)
 		 result=temp.temperature_sensor(uav_name)
-		 #temp_publisher_3.publish(result[0])
+		 temp_publisher_3.publish(result[0])
 	         #dist_publisher_3.publish(result[1])
 		
 		
