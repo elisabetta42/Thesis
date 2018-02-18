@@ -13,11 +13,11 @@ def main():
 		y_off=0.0
 		var1, var2, var3, var4 = raw_input("Enter target position").split()
 		if var4=="iris_2":
-			x_off=-1
-			y_off=-1
+			x_off=-2
+			y_off=-2
 		elif var4=="iris_3":
-			x_off=-1
-			y_off=1
+			x_off=-2
+			y_off=2
 			
 		arm_pub = rospy.Publisher("gazebo/"+var4+"/go_to_destination", PoseStamped,queue_size=1000)
 		print "gazebo/"+var4+"/go_to_destination"

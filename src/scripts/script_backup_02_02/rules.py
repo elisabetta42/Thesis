@@ -19,7 +19,7 @@ def separation(uav_name,blockListDict):
 			v=numpy.array([0.0,0.0])
 		        position=numpy.array([c_x,c_y])
 			
-			radius=2	
+			radius=1	
 			n_count=0
 			
     			for block in blockListDict.itervalues():
@@ -38,15 +38,12 @@ def separation(uav_name,blockListDict):
 					        n_count=n_count+1
 			
 			#Divide by the number of neibourgh
-			if n_count==0:	
-				print "There is anyone around me"	
+			if n_count==0:		
 				return position			
 			v[0]=v[0]/n_count
 			v[1]=v[1]/n_count
 			#calculate magnitude
 			magnitude = math.sqrt(pow((v[0]), 2)+pow((v[1]), 2))
-			print "magnitude"
-			print magnitude
 			v=v/magnitude
 			
 			#Opposite direction
@@ -98,21 +95,20 @@ def cohesion(uav_name,blockListDict):
 			magnitude = math.sqrt(pow((v[0]), 2)+pow((v[1]), 2))
 			v=v/magnitude
 			
-			#if comulative_distance < 3:
-			#	return 0.5*v
-		        #if comulative_distance > 5:
-			#	return 2*v
-			#if comulative_distance > 10:
-			#	return 3*v
-			#if comulative_distance > 15:
-			#	return 4*v
+			
+		        if comulative_distance > 5:
+				return 2*v
+			if comulative_distance > 10:
+				return 3*v
+			if comulative_distance > 15:
+				return 4*v
 			
 			return v
 
 def temperature_sensor(uav_name):
 	value=[]
-	a=600
-	b=4
+	a=300	
+	b=1
 	model_coordinates = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)
     	input_drone_coordinates = model_coordinates(uav_name, "")	
 	c_x=input_drone_coordinates.pose.position.x
@@ -120,15 +116,12 @@ def temperature_sensor(uav_name):
 	fire_x=0.0
 	fire_y=0.0
 	distance=math.sqrt(pow((c_x - fire_x), 2) + pow((c_y - fire_y), 2))
-	print "distance:"
-	print distance
 	temperature=a/(distance+b)
+	print uav_name
 	print "temperature"
 	print temperature
-	value.append(temperature)
-	value.append(distance)
-	return value
+	print "distance:"
+	print distance
+	return temperature
 
-
-	
 	

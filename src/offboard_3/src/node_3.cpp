@@ -76,9 +76,9 @@ int main(int argc, char **argv)
     
     
     ros::Subscriber state_sub = nh.subscribe<mavros_msgs::State>
-            ("iris_3/mavros/state", 10, state_cb);
+            ("iris_3/mavros/state", 1000, state_cb);
     local_pos_pub = nh.advertise<geometry_msgs::PoseStamped>
-            ("iris_3/mavros/setpoint_position/local", 10);
+            ("iris_3/mavros/setpoint_position/local", 1000);
     ros::ServiceClient arming_client = nh.serviceClient<mavros_msgs::CommandBool>
             ("iris_3/mavros/cmd/arming");
     ros::ServiceClient set_mode_client = nh.serviceClient<mavros_msgs::SetMode>
@@ -101,6 +101,7 @@ int main(int argc, char **argv)
     pose.pose.position.x = getmodelstate.response.pose.position.x;
     pose.pose.position.y = getmodelstate.response.pose.position.y;
     pose.pose.position.z = 1;
+    ROS_INFO("initial setpoint: %.1f, %.1f, %.1f", pose.pose.position.x, pose.pose.position.y, pose.pose.position.z);
     //pose.pose.orientation.w = 1;
     
     //send a few setpoints before starting
