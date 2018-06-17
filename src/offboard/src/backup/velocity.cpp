@@ -74,25 +74,25 @@ void move_drone_to_target_callback(const geometry_msgs::TwistStamped::ConstPtr& 
 int main(int argc, char **argv)
 {
     std::cout<<argv[0]<<"passed argument";
-    ros::init(argc, argv, "offb3_node");
+    ros::init(argc, argv, "offb1_node");
     ros::NodeHandle nh;
     
     
     ros::Subscriber state_sub = nh.subscribe<mavros_msgs::State>
-            ("iris_3/mavros/state", 1000, state_cb);
+            ("iris_1/mavros/state", 1000, state_cb);
     local_pos_pub = nh.advertise<geometry_msgs::PoseStamped>
-            ("iris_3/mavros/setpoint_position/1000", local);
+            ("iris_1/mavros/setpoint_position///local", 1000);
     local_vel_pub = nh.advertise<geometry_msgs::TwistStamped>
-            ("iris_3/mavros/setpoint_velocity/cmd_vel", 1000);
+            ("iris_1/mavros/setpoint_velocity/cmd_vel", 1000);
     ros::ServiceClient arming_client = nh.serviceClient<mavros_msgs::CommandBool>
-            ("iris_3/mavros/cmd/arming");
+            ("iris_1/mavros/cmd/arming");
     ros::ServiceClient set_mode_client = nh.serviceClient<mavros_msgs::SetMode>
-            ("iris_3/mavros/set_mode");
+            ("iris_1/mavros/set_mode");
 
     gms_c = nh.serviceClient<gazebo_msgs::GetModelState>("/gazebo/get_model_state");
-    ros::Subscriber sub = nh.subscribe("/gazebo/iris_3/command", 1000, move_drone_callback);
-    ros::Subscriber destination = nh.subscribe("gazebo/iris_3/go_to_destination", 1000, move_drone_to_target_callback);
-    getmodelstate.request.model_name="iris_3";
+    ros::Subscriber sub = nh.subscribe("/gazebo/iris_1/command", 1000, move_drone_callback);
+    ros::Subscriber destination = nh.subscribe("gazebo/iris_1/go_to_destination", 1000, move_drone_to_target_callback);
+    getmodelstate.request.model_name="iris_1";
     gms_c.call(getmodelstate);
     //the setpoint publishing rate MUST be faster than 2Hz
     ros::Rate rate(20.0);

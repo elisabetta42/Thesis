@@ -14,6 +14,7 @@ offboard_2/CMakeFiles/offboard_2.dir/src/node_2.cpp.o: /opt/ros/kinetic/include/
 offboard_2/CMakeFiles/offboard_2.dir/src/node_2.cpp.o: /opt/ros/kinetic/include/geometry_msgs/PoseStamped.h
 offboard_2/CMakeFiles/offboard_2.dir/src/node_2.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Quaternion.h
 offboard_2/CMakeFiles/offboard_2.dir/src/node_2.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Twist.h
+offboard_2/CMakeFiles/offboard_2.dir/src/node_2.cpp.o: /opt/ros/kinetic/include/geometry_msgs/TwistStamped.h
 offboard_2/CMakeFiles/offboard_2.dir/src/node_2.cpp.o: /opt/ros/kinetic/include/geometry_msgs/Vector3.h
 offboard_2/CMakeFiles/offboard_2.dir/src/node_2.cpp.o: /opt/ros/kinetic/include/mavros_msgs/CommandBool.h
 offboard_2/CMakeFiles/offboard_2.dir/src/node_2.cpp.o: /opt/ros/kinetic/include/mavros_msgs/CommandBoolRequest.h
